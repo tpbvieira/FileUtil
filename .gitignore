@@ -1,0 +1,10 @@
+.classpath
+.project
+hs_err_pid5670.log
+*.pcap
+*.crc
+.settings/
+target/
+input/
+output/
+
