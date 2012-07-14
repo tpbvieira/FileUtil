@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -160,6 +162,32 @@ public class FileUtil {
 			}
 		}
 	}
+	
+	/**
+	 * List recursively all files of a directory
+	 * @param path
+	 */
+	public static File[] listFiles(File path){
+		List<File> fileList = new ArrayList<File>();
+		
+		if(path.isDirectory()){
+			File[] files = path.listFiles();
+			for (int i = 0; i < files.length; i++) {
+				if(files[i].isDirectory()){
+					File[] tmp = listFiles(files[i]);
+					for (int j = 0; j < tmp.length; j++) {
+						fileList.add(tmp[j]);
+					}
+				}else{
+					fileList.add(files[i]);
+				}
+			}
+		}else{
+			fileList.add(path);
+		}
+		
+		return fileList.toArray(new File[0]);
+	}
 
 
 	/**
@@ -167,6 +195,9 @@ public class FileUtil {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
-
+		File[] files = listFiles(new File("/home/thiago/tmp/pcap-traces"));
+		for (int i = 0; i < files.length; i++) {
+			System.out.println(files[i]);
+		}
 	}
 }
