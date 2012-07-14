@@ -1,6 +1,6 @@
 .classpath
 .project
-hs_err_pid5670.log
+*.log
 *.pcap
 *.crc
 .settings/
